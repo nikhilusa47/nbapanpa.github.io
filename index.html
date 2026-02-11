@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikhil Bapanpalli - Senior Data Analyst</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Nikhil Bapanpalli | Senior Data Analyst</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --primary: #1a1a1a;
-            --secondary: #666666;
-            --accent: #2563eb;
-            --accent-light: #3b82f6;
-            --bg-sidebar: #fafafa;
-            --bg-main: #ffffff;
-            --border: #e5e5e5;
-            --text: #111111;
-            --text-muted: #737373;
-            --success: #10b981;
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-1: #3b82f6;
+            --gradient-2: #8b5cf6;
+            --gradient-3: #06b6d4;
         }
 
         * {
@@ -28,303 +27,371 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg-main);
+            background: var(--primary);
             color: var(--text);
             line-height: 1.6;
-            display: flex;
-            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Sidebar */
-        .sidebar {
-            width: 320px;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            padding: 3rem 2rem;
+        /* Animated Background */
+        .bg-animation {
             position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
         }
 
-        .profile-section {
-            text-align: center;
-            margin-bottom: 3rem;
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--gradient-1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--gradient-2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, var(--gradient-3) 0%, transparent 40%);
+            animation: float 20s ease-in-out infinite;
         }
 
-        .profile-image {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            font-weight: 700;
-            color: white;
-            border: 4px solid white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .profile-name {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-
-        .profile-title {
-            color: var(--accent);
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .profile-location {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
         }
 
         /* Navigation */
-        .nav-menu {
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-light), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
             list-style: none;
-            margin-bottom: 3rem;
         }
 
-        .nav-item {
-            margin-bottom: 0.5rem;
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
         }
 
-        .nav-link {
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
             display: flex;
             align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(135deg, var(--accent-light), var(--gradient-2), var(--gradient-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
             gap: 1rem;
-            padding: 0.875rem 1rem;
-            color: var(--secondary);
-            text-decoration: none;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
             border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
             transition: all 0.3s;
-            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .nav-link:hover,
-        .nav-link.active {
-            background: white;
-            color: var(--accent);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
         }
 
-        .nav-link i {
-            width: 20px;
-            height: 20px;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
         }
 
-        /* Contact Info */
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+        }
+
         .contact-info {
-            margin-top: auto;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
         }
 
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
+            gap: 0.5rem;
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
         .contact-item i {
-            width: 18px;
-            height: 18px;
-            color: var(--accent);
+            color: var(--accent-light);
         }
 
-        .social-links {
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+        }
+
+        .code-window {
+            background: var(--secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .code-header {
             display: flex;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
         }
 
-        .social-link {
-            width: 40px;
-            height: 40px;
+        .code-dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--secondary);
-            text-decoration: none;
-            transition: all 0.3s;
-            border: 1px solid var(--border);
         }
 
-        .social-link:hover {
-            background: var(--accent);
-            color: white;
-            border-color: var(--accent);
-            transform: translateY(-2px);
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #eab308; }
+        .dot-green { background: #22c55e; }
+
+        .code-content {
+            color: var(--text-muted);
         }
 
-        /* Main Content */
-        .main-content {
-            margin-left: 320px;
-            flex: 1;
-            padding: 4rem 5rem;
-            max-width: 900px;
+        .code-keyword { color: #c084fc; }
+        .code-string { color: #86efac; }
+        .code-function { color: #60a5fa; }
+        .code-comment { color: #64748b; }
+        .code-number { color: #fbbf24; }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem 5%;
         }
 
-        .section {
-            margin-bottom: 4rem;
-            scroll-margin-top: 2rem;
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-light), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
-        .section-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--bg-sidebar);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-        }
-
-        .section-title {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.75rem;
+        .section-header h2 {
+            font-size: 2.5rem;
             font-weight: 700;
-            color: var(--primary);
+            margin-bottom: 1rem;
         }
 
-        /* About Section */
-        .about-text {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: var(--secondary);
-            margin-bottom: 2rem;
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .highlight-box {
-            background: var(--bg-sidebar);
-            border-left: 4px solid var(--accent);
-            padding: 1.5rem 2rem;
-            border-radius: 0 8px 8px 0;
-            margin: 2rem 0;
+        /* Experience Section */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
         }
 
-        .highlight-text {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        /* Experience Cards */
-        .timeline {
+        .experience-card {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
             position: relative;
-            padding-left: 2rem;
+            overflow: hidden;
         }
 
-        .timeline::before {
+        .experience-card::before {
             content: '';
             position: absolute;
-            left: 0;
             top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--border);
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--gradient-2));
         }
 
-        .timeline-item {
-            position: relative;
-            padding-bottom: 3rem;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2rem;
-            top: 0.5rem;
-            width: 12px;
-            height: 12px;
-            background: var(--accent);
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 2px var(--accent);
-            transform: translateX(-5px);
+        .experience-card:hover {
+            transform: translateX(10px);
+            border-color: var(--accent);
         }
 
         .exp-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
         }
 
-        .exp-title {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
+        .exp-title h3 {
+            font-size: 1.3rem;
             margin-bottom: 0.25rem;
         }
 
         .exp-company {
-            color: var(--accent);
+            color: var(--accent-light);
             font-weight: 600;
-            font-size: 1rem;
         }
 
         .exp-date {
             color: var(--text-muted);
-            font-size: 0.875rem;
-            font-weight: 500;
-            white-space: nowrap;
+            font-size: 0.9rem;
+            text-align: right;
         }
 
         .exp-location {
             color: var(--text-muted);
-            font-size: 0.875rem;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .exp-description {
-            color: var(--secondary);
-            margin-bottom: 1rem;
-            line-height: 1.7;
+            font-size: 0.85rem;
         }
 
         .exp-achievements {
             list-style: none;
-            margin-bottom: 1.5rem;
+            margin: 1rem 0;
         }
 
         .exp-achievements li {
             padding: 0.5rem 0;
             padding-left: 1.5rem;
             position: relative;
-            color: var(--secondary);
-            font-size: 0.95rem;
+            color: var(--text-muted);
         }
 
         .exp-achievements li::before {
@@ -332,54 +399,140 @@
             position: absolute;
             left: 0;
             color: var(--accent);
-            font-weight: 700;
         }
 
         .exp-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
+            margin-top: 1rem;
         }
 
         .tech-tag {
-            background: var(--bg-sidebar);
-            color: var(--secondary);
-            padding: 0.375rem 0.875rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-light);
+            padding: 0.25rem 0.75rem;
             border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 500;
-            border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Skills Grid */
-        .skills-grid {
+        /* Projects Section */
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--secondary);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .project-icon i {
+            width: 40px;
+            height: 40px;
+            color: var(--accent-light);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-category {
+            color: var(--accent-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
         .skill-category {
-            background: var(--bg-sidebar);
+            background: var(--secondary);
+            border-radius: 16px;
             padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .skill-category h3 {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
-        }
-
-        .skill-category h3 i {
-            color: var(--accent);
-            width: 20px;
-            height: 20px;
+            margin-bottom: 1rem;
+            color: var(--accent-light);
         }
 
         .skill-list {
@@ -389,486 +542,343 @@
         }
 
         .skill-item {
-            background: white;
+            background: rgba(255,255,255,0.05);
             padding: 0.5rem 1rem;
-            border-radius: 6px;
-            font-size: 0.875rem;
-            color: var(--secondary);
-            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9rem;
             transition: all 0.3s;
         }
 
         .skill-item:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            transform: translateY(-1px);
+            background: rgba(59, 130, 246, 0.2);
+            transform: scale(1.05);
         }
 
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .project-card {
-            background: var(--bg-sidebar);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: all 0.3s;
-        }
-
-        .project-card:hover {
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            transform: translateY(-2px);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
-        }
-
-        .project-title {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .project-category {
-            color: var(--accent);
-            font-size: 0.875rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .project-metrics {
-            display: flex;
-            gap: 2rem;
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-        }
-
-        .metric {
-            text-align: center;
-        }
-
-        .metric-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--accent);
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .metric-label {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        /* Education */
+        /* Education Section */
         .education-card {
-            background: var(--bg-sidebar);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            background: var(--secondary);
+            border-radius: 16px;
             padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .edu-info h3 {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
+            font-size: 1.3rem;
             margin-bottom: 0.5rem;
         }
 
         .edu-degree {
-            color: var(--accent);
+            color: var(--accent-light);
             font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .edu-location {
-            color: var(--text-muted);
-            font-size: 0.9rem;
         }
 
         .edu-date {
-            text-align: right;
             color: var(--text-muted);
-            font-weight: 500;
         }
 
-        /* CTA Button */
-        .cta-section {
-            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
-            border-radius: 16px;
-            padding: 3rem;
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 3rem 5%;
             text-align: center;
-            color: white;
-            margin-top: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        .cta-title {
-            font-family: 'DM Sans', sans-serif;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        .cta-text {
-            opacity: 0.9;
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        .cta-button {
-            display: inline-flex;
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
-            background: white;
-            color: var(--accent);
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
+            justify-content: center;
+            color: var(--text);
             transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
         }
 
         /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 280px;
-            }
-            .main-content {
-                margin-left: 280px;
-                padding: 3rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                position: relative;
-                height: auto;
-                padding: 2rem;
-            }
-            .main-content {
-                margin-left: 0;
-                padding: 2rem;
-            }
-            .skills-grid {
+        @media (max-width: 968px) {
+            .hero-content {
                 grid-template-columns: 1fr;
+                text-align: center;
             }
-            .exp-header {
-                flex-direction: column;
-            }
-            .exp-date {
-                margin-top: 0.5rem;
-            }
-        }
 
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
 
-        /* Print styles */
-        @media print {
-            .sidebar {
+            .contact-info {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
                 display: none;
             }
-            .main-content {
-                margin-left: 0;
-                padding: 2rem;
-            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 <base target="_blank">
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="profile-section">
-            <div class="profile-image">NB</div>
-            <h1 class="profile-name">Nikhil Bapanpalli</h1>
-            <p class="profile-title">Senior Data Analyst</p>
-            <div class="profile-location">
-                <i data-lucide="map-pin"></i>
-                Fairfax, VA, USA
-            </div>
-        </div>
+    <div class="bg-animation"></div>
 
-        <nav>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#about" class="nav-link active">
-                        <i data-lucide="user"></i>
-                        About Me
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#experience" class="nav-link">
-                        <i data-lucide="briefcase"></i>
-                        Experience
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">
-                        <i data-lucide="folder"></i>
-                        Projects
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">
-                        <i data-lucide="code-2"></i>
-                        Skills
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#education" class="nav-link">
-                        <i data-lucide="graduation-cap"></i>
-                        Education
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <nav>
+        <div class="logo">NB.</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <div class="contact-info">
-            <div class="contact-item">
-                <i data-lucide="mail"></i>
-                nikhilusa47@gmail.com
-            </div>
-            <div class="contact-item">
-                <i data-lucide="phone"></i>
-                +1 (571) 249-2897
-            </div>
-            <div class="contact-item">
-                <i data-lucide="linkedin"></i>
-                linkedin.com/in/nbapanpa
-            </div>
-
-            <div class="social-links">
-                <a href="mailto:nikhilusa47@gmail.com" class="social-link" title="Email">
-                    <i data-lucide="mail" style="width: 18px; height: 18px;"></i>
-                </a>
-                <a href="https://linkedin.com/in/nbapanpa" target="_blank" class="social-link" title="LinkedIn">
-                    <i data-lucide="linkedin" style="width: 18px; height: 18px;"></i>
-                </a>
-                <a href="tel:+15712492897" class="social-link" title="Phone">
-                    <i data-lucide="phone" style="width: 18px; height: 18px;"></i>
-                </a>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i data-lucide="user"></i>
-                </div>
-                <h2 class="section-title">About Me</h2>
-            </div>
-
-            <p class="about-text">
-                Results-driven <strong>Senior Data Analyst</strong> with over 4 years of experience transforming 
-                complex datasets into actionable business intelligence. I specialize in building scalable 
-                data pipelines, developing predictive models, and creating compelling visualizations that 
-                drive strategic decision-making across financial services and fintech.
-            </p>
-
-            <div class="highlight-box">
-                <p class="highlight-text">
-                    Proven expertise in real-time data streaming, ML deployment, and cloud architecture 
-                    with a track record of delivering $12M+ in business value through data-driven solutions.
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <span class="highlight">Nikhil Bapanpalli</span></h1>
+                <p class="subtitle">Senior Data Analyst</p>
+                <p class="tagline">
+                    Transforming complex financial data into strategic business intelligence. 
+                    Specializing in real-time analytics, ML-driven forecasting, and cloud-scale 
+                    data architecture for Fortune 500 companies.
                 </p>
-            </div>
-
-            <p class="about-text">
-                Currently leading analytics initiatives at <strong>Genworth Financial</strong>, where I architect 
-                real-time fraud detection systems processing 2.5TB daily and deploy production ML models 
-                with 94% accuracy. Previously optimized data platforms at <strong>Capital One</strong> supporting 
-                $50B+ in assets.
-            </p>
-        </section>
-
-        <!-- Experience Section -->
-        <section id="experience" class="section">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i data-lucide="briefcase"></i>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i data-lucide="briefcase"></i>
+                        View Projects
+                    </a>
+                    <a href="mailto:nikhilusa47@gmail.com" class="btn btn-secondary">
+                        <i data-lucide="mail"></i>
+                        Get In Touch
+                    </a>
                 </div>
-                <h2 class="section-title">Work Experience</h2>
-            </div>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="exp-header">
-                        <div>
-                            <h3 class="exp-title">Senior Data Analyst</h3>
-                            <div class="exp-company">Genworth Financial</div>
-                        </div>
-                        <div class="exp-date">Aug 2024 - Present</div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i data-lucide="map-pin"></i>
+                        Fairfax, VA
                     </div>
-                    <div class="exp-location">
-                        <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
-                        Henrico County, VA
+                    <div class="contact-item">
+                        <i data-lucide="phone"></i>
+                        +1 (571) 249-2897
                     </div>
-                    <p class="exp-description">
-                        Leading enterprise analytics for insurance and mortgage products, architecting 
-                        real-time data pipelines and deploying production ML models.
-                    </p>
-                    <ul class="exp-achievements">
-                        <li>Architected real-time streaming pipelines processing <strong>2.5TB daily</strong> using Apache Kafka and AWS Kinesis</li>
-                        <li>Deployed ML models (TensorFlow) achieving <strong>94% accuracy</strong> in policy lapse prediction, delivering <strong>$8.5M annual value</strong></li>
-                        <li>Centralized data in Snowflake/Redshift, eliminating <strong>15+ silos</strong> and improving efficiency by <strong>40%</strong></li>
-                        <li>Automated compliance reporting with Airflow, saving <strong>120 hours/month</strong> manual work</li>
-                    </ul>
-                    <div class="exp-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">SQL</span>
-                        <span class="tech-tag">Apache Kafka</span>
-                        <span class="tech-tag">Snowflake</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">Docker</span>
-                        <span class="tech-tag">Kubernetes</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="exp-header">
-                        <div>
-                            <h3 class="exp-title">Senior Data Analyst</h3>
-                            <div class="exp-company">Capital One Financial</div>
-                        </div>
-                        <div class="exp-date">Sep 2023 - Jul 2024</div>
-                    </div>
-                    <div class="exp-location">
-                        <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
-                        Tysons, VA
-                    </div>
-                    <p class="exp-description">
-                        Engineered cloud data platforms and predictive models for actuarial and risk 
-                        management teams.
-                    </p>
-                    <ul class="exp-achievements">
-                        <li>Built cloud platforms (AWS Glue, Redshift) supporting analysis of <strong>$50B+</strong> in assets</li>
-                        <li>Developed forecasting models with Prophet, improving predictions by <strong>28%</strong></li>
-                        <li>Implemented data governance with Collibra, achieving <strong>100% traceability</strong></li>
-                        <li>Streamlined batch processing with Spark, accelerating throughput by <strong>3x</strong></li>
-                    </ul>
-                    <div class="exp-tech">
-                        <span class="tech-tag">Apache Spark</span>
-                        <span class="tech-tag">AWS Glue</span>
-                        <span class="tech-tag">Prophet</span>
-                        <span class="tech-tag">Collibra</span>
-                        <span class="tech-tag">Terraform</span>
-                        <span class="tech-tag">Tableau</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="exp-header">
-                        <div>
-                            <h3 class="exp-title">Data Analyst</h3>
-                            <div class="exp-company">PB Fintech (Policybazaar)</div>
-                        </div>
-                        <div class="exp-date">Aug 2021 - Jun 2022</div>
-                    </div>
-                    <div class="exp-location">
-                        <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
-                        Bangalore, India
-                    </div>
-                    <p class="exp-description">
-                        Developed fraud detection systems and automated reporting for India's largest 
-                        digital insurance platform.
-                    </p>
-                    <ul class="exp-achievements">
-                        <li>Built ML pipelines identifying <strong>$3.2M</strong> in fraudulent claims with <strong>91% precision</strong></li>
-                        <li>Processed <strong>500K+ daily transactions</strong> with <strong>99.9% uptime</strong></li>
-                        <li>Reduced regulatory reporting time by <strong>60%</strong> through Python automation</li>
-                    </ul>
-                    <div class="exp-tech">
-                        <span class="tech-tag">Python</span>
-                        <span class="tech-tag">R</span>
-                        <span class="tech-tag">Apache Airflow</span>
-                        <span class="tech-tag">BigQuery</span>
-                        <span class="tech-tag">Keras</span>
-                    </div>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="exp-header">
-                        <div>
-                            <h3 class="exp-title">Data Analyst</h3>
-                            <div class="exp-company">Moneyview</div>
-                        </div>
-                        <div class="exp-date">May 2020 - Jul 2021</div>
-                    </div>
-                    <div class="exp-location">
-                        <i data-lucide="map-pin" style="width: 14px; height: 14px;"></i>
-                        Bangalore, India
-                    </div>
-                    <p class="exp-description">
-                        Built credit risk models and real-time monitoring systems for digital lending platform.
-                    </p>
-                    <ul class="exp-achievements">
-                        <li>Automated underwriting decisions for <strong>$45M</strong> in loan disbursements</li>
-                        <li>Processed <strong>10M+ records</strong> with Hadoop/Spark for risk assessment</li>
-                        <li>Improved compliance monitoring speed by <strong>75%</strong> with Kafka streaming</li>
-                    </ul>
-                    <div class="exp-tech">
-                        <span class="tech-tag">Hadoop</span>
-                        <span class="tech-tag">Spark</span>
-                        <span class="tech-tag">TensorFlow</span>
-                        <span class="tech-tag">QlikView</span>
-                        <span class="tech-tag">MongoDB</span>
+                    <div class="contact-item">
+                        <i data-lucide="linkedin"></i>
+                        linkedin.com/in/nbapanpa
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects" class="section">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i data-lucide="folder"></i>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-comment"># Real-time fraud detection pipeline</span><br>
+                        <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd<br>
+                        <span class="code-keyword">from</span> kafka <span class="code-keyword">import</span> KafkaConsumer<br><br>
+                        <span class="code-comment"># Process 2.5TB daily transactions</span><br>
+                        <span class="code-keyword">def</span> <span class="code-function">detect_anomalies</span>(stream):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;model = load_tf_model(<span class="code-string">'fraud_v2'</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> model.predict(stream) <span class="code-comment"># 94% accuracy</span>
+                    </div>
                 </div>
-                <h2 class="section-title">Featured Projects</h2>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>4+</h3>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat-item">
+                <h3>2.5TB</h3>
+                <p>Daily Data Processed</p>
+            </div>
+            <div class="stat-item">
+                <h3>40%</h3>
+                <p>Reporting Time Reduced</p>
+            </div>
+            <div class="stat-item">
+                <h3>$12M</h3>
+                <p>Risk Identified</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="experience">
+        <div class="section-header">
+            <h2>Professional Experience</h2>
+            <p>Building enterprise-scale analytics solutions across financial services and fintech</p>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Senior Data Analyst</h3>
+                        <div class="exp-company">Genworth Financial</div>
+                        <div class="exp-location">Henrico County, VA</div>
+                    </div>
+                    <div class="exp-date">
+                        Aug 2024 - Present
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Architected real-time streaming pipelines processing <strong>2.5TB daily</strong> policy transactions using Apache Kafka and AWS Kinesis, reducing fraud detection latency by <strong>65%</strong></li>
+                    <li>Deployed ML models (TensorFlow/Scikit-learn) achieving <strong>94% accuracy</strong> in policy lapse prediction, enabling proactive retention strategies worth <strong>$8.5M annually</strong></li>
+                    <li>Centralized mortgage and insurance data in Snowflake/Redshift, eliminating <strong>15+ data silos</strong> and improving reporting efficiency by <strong>40%</strong></li>
+                    <li>Automated compliance reporting with Airflow, reducing manual workload by <strong>120 hours/month</strong> and ensuring 100% audit readiness</li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">SQL</span>
+                    <span class="tech-tag">Apache Kafka</span>
+                    <span class="tech-tag">Snowflake</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">AWS Kinesis</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Kubernetes</span>
+                </div>
             </div>
 
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <div>
-                            <div class="project-category">Real-time Analytics</div>
-                            <h3 class="project-title">Fraud Detection Pipeline</h3>
-                        </div>
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Senior Data Analyst</h3>
+                        <div class="exp-company">Capital One Financial</div>
+                        <div class="exp-location">Tysons, VA</div>
                     </div>
-                    <p style="color: var(--secondary); margin-bottom: 1rem;">
-                        Real-time streaming architecture processing 50K+ transactions/sec with ML-based 
-                        anomaly detection for insurance claims.
-                    </p>
+                    <div class="exp-date">
+                        Sep 2023 - Jul 2024
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Engineered cloud data platforms using AWS Glue and Redshift, supporting <strong>$50B+</strong> in assets under analysis for actuarial and finance teams</li>
+                    <li>Built predictive forecasting models with Prophet, improving claims volume predictions by <strong>28%</strong> and optimizing capital reserves</li>
+                    <li>Implemented enterprise data governance with Collibra, achieving <strong>100% traceability</strong> for critical data elements across 200+ datasets</li>
+                    <li>Streamlined batch processing with Apache Spark, accelerating risk data throughput by <strong>3x</strong> for regulatory reporting</li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Apache Spark</span>
+                    <span class="tech-tag">AWS Glue</span>
+                    <span class="tech-tag">Prophet</span>
+                    <span class="tech-tag">Collibra</span>
+                    <span class="tech-tag">Informatica</span>
+                    <span class="tech-tag">Terraform</span>
+                    <span class="tech-tag">Tableau</span>
+                </div>
+            </div>
+
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Data Analyst</h3>
+                        <div class="exp-company">PB Fintech (Policybazaar)</div>
+                        <div class="exp-location">Bangalore, India</div>
+                    </div>
+                    <div class="exp-date">
+                        Aug 2021 - Jun 2022
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Developed fraud detection ML pipelines identifying <strong>$3.2M</strong> in anomalous claims with <strong>91% precision</strong></li>
+                    <li>Built automated ETL workflows with Apache Airflow, processing <strong>500K+ daily</strong> transactions with 99.9% uptime</li>
+                    <li>Created executive dashboards in Tableau/Power BI used by <strong>200+ stakeholders</strong> for real-time KPI monitoring</li>
+                    <li>Reduced regulatory reporting time by <strong>60%</strong> through Python automation, ensuring IRDAI compliance</li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">R</span>
+                    <span class="tech-tag">Apache Airflow</span>
+                    <span class="tech-tag">BigQuery</span>
+                    <span class="tech-tag">Keras</span>
+                    <span class="tech-tag">SAS</span>
+                </div>
+            </div>
+
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Data Analyst</h3>
+                        <div class="exp-company">Moneyview</div>
+                        <div class="exp-location">Bangalore, India</div>
+                    </div>
+                    <div class="exp-date">
+                        May 2020 - Jul 2021
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Built credit risk ML models (TensorFlow) automating underwriting decisions for <strong>$45M</strong> in loan disbursements</li>
+                    <li>Processed <strong>10M+</strong> historical records with Hadoop/Spark, enabling sub-second risk assessments</li>
+                    <li>Designed real-time monitoring with Apache Kafka, improving compliance detection speed by <strong>75%</strong></li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Hadoop</span>
+                    <span class="tech-tag">Spark</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">QlikView</span>
+                    <span class="tech-tag">MongoDB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <h2>Featured Projects</h2>
+            <p>Enterprise-scale analytics solutions demonstrating end-to-end data engineering and ML capabilities</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="shield-alert"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Real-time Analytics</div>
+                    <h3>Fraud Detection Pipeline</h3>
+                    <p>Real-time streaming architecture processing 50K+ transactions/sec with ML-based anomaly detection for insurance claims.</p>
                     <div class="project-metrics">
                         <div class="metric">
                             <div class="metric-value">94%</div>
@@ -884,18 +894,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div>
-                            <div class="project-category">Machine Learning</div>
-                            <h3 class="project-title">Churn Prediction Engine</h3>
-                        </div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="trending-up"></i>
                     </div>
-                    <p style="color: var(--secondary); margin-bottom: 1rem;">
-                        Deep learning model predicting policy lapses 90 days in advance with automated 
-                        retention triggers.
-                    </p>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Machine Learning</div>
+                    <h3>Churn Prediction Engine</h3>
+                    <p>Deep learning model (TensorFlow) predicting policy lapses 90 days in advance with automated retention triggers.</p>
                     <div class="project-metrics">
                         <div class="metric">
                             <div class="metric-value">0.92</div>
@@ -903,7 +913,7 @@
                         </div>
                         <div class="metric">
                             <div class="metric-value">18%</div>
-                            <div class="metric-label">Churn Reduction</div>
+                            <div class="metric-label">Churn ↓</div>
                         </div>
                         <div class="metric">
                             <div class="metric-value">$8.5M</div>
@@ -911,18 +921,18 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div>
-                            <div class="project-category">Data Engineering</div>
-                            <h3 class="project-title">Cloud Data Warehouse</h3>
-                        </div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="database"></i>
                     </div>
-                    <p style="color: var(--secondary); margin-bottom: 1rem;">
-                        Enterprise data lake migration consolidating 15+ silos into Snowflake with 
-                        automated ETL and governance.
-                    </p>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Data Engineering</div>
+                    <h3>Cloud Data Warehouse</h3>
+                    <p>Enterprise data lake migration consolidating 15+ silos into Snowflake with automated ETL and governance.</p>
                     <div class="project-metrics">
                         <div class="metric">
                             <div class="metric-value">2.5TB</div>
@@ -939,150 +949,238 @@
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Skills Section -->
-        <section id="skills" class="section">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i data-lucide="code-2"></i>
-                </div>
-                <h2 class="section-title">Technical Skills</h2>
-            </div>
-
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3><i data-lucide="terminal"></i> Programming</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Python</span>
-                        <span class="skill-item">SQL</span>
-                        <span class="skill-item">R</span>
-                        <span class="skill-item">SAS</span>
-                        <span class="skill-item">Pandas</span>
-                        <span class="skill-item">NumPy</span>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="activity"></i>
                     </div>
                 </div>
-
-                <div class="skill-category">
-                    <h3><i data-lucide="brain"></i> Machine Learning</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">TensorFlow</span>
-                        <span class="skill-item">Keras</span>
-                        <span class="skill-item">Scikit-learn</span>
-                        <span class="skill-item">Prophet</span>
-                        <span class="skill-item">XGBoost</span>
-                        <span class="skill-item">Neural Networks</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i data-lucide="cloud"></i> Cloud & Big Data</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">AWS</span>
-                        <span class="skill-item">Snowflake</span>
-                        <span class="skill-item">BigQuery</span>
-                        <span class="skill-item">Apache Spark</span>
-                        <span class="skill-item">Hadoop</span>
-                        <span class="skill-item">Kafka</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i data-lucide="bar-chart-3"></i> Visualization</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Tableau</span>
-                        <span class="skill-item">Power BI</span>
-                        <span class="skill-item">Looker</span>
-                        <span class="skill-item">Matplotlib</span>
-                        <span class="skill-item">Plotly</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i data-lucide="workflow"></i> ETL & Integration</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Apache Airflow</span>
-                        <span class="skill-item">Informatica</span>
-                        <span class="skill-item">Talend</span>
-                        <span class="tech-tag">dbt</span>
-                        <span class="skill-item">AWS Glue</span>
-                    </div>
-                </div>
-
-                <div class="skill-category">
-                    <h3><i data-lucide="container"></i> DevOps</h3>
-                    <div class="skill-list">
-                        <span class="skill-item">Docker</span>
-                        <span class="skill-item">Kubernetes</span>
-                        <span class="skill-item">Jenkins</span>
-                        <span class="skill-item">Git</span>
-                        <span class="skill-item">Terraform</span>
+                <div class="project-content">
+                    <div class="project-category">Forecasting</div>
+                    <h3>Claims Volume Predictor</h3>
+                    <p>Time-series forecasting using Prophet and Dask for actuarial planning, optimizing $50M+ in capital reserves.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">28%</div>
+                            <div class="metric-label">Accuracy ↑</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">30 Days</div>
+                            <div class="metric-label">Forecast</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">$12M</div>
+                            <div class="metric-label">Optimized</div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Education Section -->
-        <section id="education" class="section">
-            <div class="section-header">
-                <div class="section-icon">
-                    <i data-lucide="graduation-cap"></i>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="layout-dashboard"></i>
+                    </div>
                 </div>
-                <h2 class="section-title">Education</h2>
+                <div class="project-content">
+                    <div class="project-category">Visualization</div>
+                    <h3>Executive BI Suite</h3>
+                    <p>Self-service analytics platform with Tableau/Power BI serving 200+ stakeholders with real-time KPIs.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">200+</div>
+                            <div class="metric-label">Users</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">99.9%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">120h</div>
+                            <div class="metric-label">Saved/mo</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <div class="education-card">
-                <div class="edu-info">
-                    <h3>George Mason University</h3>
-                    <div class="edu-degree">Master of Science in Data Analytics Engineering</div>
-                    <div class="edu-location">Fairfax, VA • GPA: 3.8/4.0</div>
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="git-branch"></i>
+                    </div>
                 </div>
-                <div class="edu-date">
-                    <div style="font-weight: 600; color: var(--primary);">Aug 2022 - May 2024</div>
+                <div class="project-content">
+                    <div class="project-category">MLOps</div>
+                    <h3>ML Pipeline Automation</h3>
+                    <p>CI/CD pipelines for ML models using Docker, Kubernetes, and Jenkins ensuring reproducible deployments.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">10x</div>
+                            <div class="metric-label">Deploy Speed</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Zero</div>
+                            <div class="metric-label">Downtime</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">100%</div>
+                            <div class="metric-label">Traceable</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- CTA Section -->
-        <div class="cta-section">
-            <h2 class="cta-title">Let's Work Together</h2>
-            <p class="cta-text">
+    <section id="skills">
+        <div class="section-header">
+            <h2>Technical Arsenal</h2>
+            <p>Full-stack data capabilities from ingestion to insights</p>
+        </div>
+        <div class="skills-container">
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="code-2"></i> Programming & Analysis</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Python</span>
+                    <span class="skill-item">SQL (Oracle, PostgreSQL)</span>
+                    <span class="skill-item">R</span>
+                    <span class="skill-item">SAS</span>
+                    <span class="skill-item">Pandas</span>
+                    <span class="skill-item">NumPy</span>
+                    <span class="skill-item">SciPy</span>
+                    <span class="skill-item">Excel/VBA</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="brain"></i> Machine Learning</h3>
+                <div class="skill-list">
+                    <span class="skill-item">TensorFlow</span>
+                    <span class="skill-item">Keras</span>
+                    <span class="skill-item">Scikit-learn</span>
+                    <span class="skill-item">Prophet</span>
+                    <span class="skill-item">XGBoost</span>
+                    <span class="skill-item">Random Forest</span>
+                    <span class="skill-item">Neural Networks</span>
+                    <span class="skill-item">A/B Testing</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="cloud"></i> Cloud & Big Data</h3>
+                <div class="skill-list">
+                    <span class="skill-item">AWS (Redshift, S3, Glue)</span>
+                    <span class="skill-item">Snowflake</span>
+                    <span class="skill-item">Google BigQuery</span>
+                    <span class="skill-item">Apache Spark</span>
+                    <span class="skill-item">Hadoop</span>
+                    <span class="skill-item">Kafka</span>
+                    <span class="skill-item">MongoDB</span>
+                    <span class="skill-item">Cassandra</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="workflow"></i> ETL & Integration</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Apache Airflow</span>
+                    <span class="skill-item">Informatica</span>
+                    <span class="skill-item">Talend</span>
+                    <span class="skill-item">Apache NiFi</span>
+                    <span class="skill-item">AWS Glue</span>
+                    <span class="skill-item">Alteryx</span>
+                    <span class="skill-item">dbt</span>
+                    <span class="skill-item">REST APIs</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="bar-chart-3"></i> Visualization</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Tableau</span>
+                    <span class="skill-item">Power BI</span>
+                    <span class="skill-item">Looker</span>
+                    <span class="skill-item">Matplotlib</span>
+                    <span class="skill-item">Seaborn</span>
+                    <span class="skill-item">Plotly</span>
+                    <span class="skill-item">QlikView</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="container"></i> DevOps & MLOps</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">Kubernetes</span>
+                    <span class="skill-item">Jenkins</span>
+                    <span class="skill-item">Git/GitHub</span>
+                    <span class="skill-item">Terraform</span>
+                    <span class="skill-item">Collibra</span>
+                    <span class="skill-item">CI/CD</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="section-header">
+            <h2>Education</h2>
+        </div>
+        <div class="education-card fade-in">
+            <div class="edu-info">
+                <h3>George Mason University</h3>
+                <div class="edu-degree">Master of Science in Data Analytics Engineering</div>
+                <div style="color: var(--text-muted); margin-top: 0.5rem;">Fairfax, VA • GPA: 3.8/4.0</div>
+            </div>
+            <div class="edu-date">Aug 2022 - May 2024</div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <h2>Let's Build Something Impactful</h2>
+            <p style="color: var(--text-muted); margin: 1rem 0;">
                 Open to Senior Data Analyst opportunities in Data Analytics, ML/AI, IT, and Finance
             </p>
-            <a href="mailto:nikhilusa47@gmail.com" class="cta-button">
-                <i data-lucide="mail"></i>
-                Get In Touch
-            </a>
+            <div class="social-links">
+                <a href="mailto:nikhilusa47@gmail.com" title="Email">
+                    <i data-lucide="mail"></i>
+                </a>
+                <a href="https://linkedin.com/in/nbapanpa" target="_blank" title="LinkedIn">
+                    <i data-lucide="linkedin"></i>
+                </a>
+                <a href="tel:+15712492897" title="Phone">
+                    <i data-lucide="phone"></i>
+                </a>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                © 2024 Nikhil Bapanpalli. Built with modern web technologies.
+            </p>
         </div>
-    </main>
+    </footer>
 
     <script>
         // Initialize Lucide icons
         lucide.createIcons();
 
-        // Active nav link on scroll
-        const sections = document.querySelectorAll('.section');
-        const navLinks = document.querySelectorAll('.nav-link');
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
                 }
             });
+        }, observerOptions);
 
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href').slice(1) === current) {
-                    link.classList.add('active');
-                }
-            });
-        });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-        // Smooth scroll for nav links
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1091,6 +1189,29 @@
                 });
             });
         });
+
+        // Dynamic code typing effect
+        const codeElement = document.querySelector('.code-content');
+        if (codeElement) {
+            const originalHTML = codeElement.innerHTML;
+            codeElement.innerHTML = '';
+            let i = 0;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = originalHTML;
+            const text = tempDiv.textContent;
+
+            function typeWriter() {
+                if (i < text.length) {
+                    codeElement.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 20);
+                } else {
+                    codeElement.innerHTML = originalHTML;
+                }
+            }
+
+            setTimeout(typeWriter, 1000);
+        }
     </script>
 </body>
 </html>
