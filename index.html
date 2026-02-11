@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikhil Bapanpalli | Senior Data Analyst</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+            --gradient-1: #3b82f6;
+            --gradient-2: #8b5cf6;
+            --gradient-3: #06b6d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.4;
+        }
+
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 80%, var(--gradient-1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, var(--gradient-2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, var(--gradient-3) 0%, transparent 40%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(120deg); }
+            66% { transform: translate(-20px, 20px) rotate(240deg); }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-light), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 5% 4rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-text .highlight {
+            background: linear-gradient(135deg, var(--accent-light), var(--gradient-2), var(--gradient-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .hero-text .tagline {
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent), var(--gradient-2));
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: var(--accent);
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .contact-item i {
+            color: var(--accent-light);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            position: relative;
+        }
+
+        .code-window {
+            background: var(--secondary);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .code-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #eab308; }
+        .dot-green { background: #22c55e; }
+
+        .code-content {
+            color: var(--text-muted);
+        }
+
+        .code-keyword { color: #c084fc; }
+        .code-string { color: #86efac; }
+        .code-function { color: #60a5fa; }
+        .code-comment { color: #64748b; }
+        .code-number { color: #fbbf24; }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem 5%;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-light), var(--gradient-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Experience Section */
+        .experience-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .experience-card {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent), var(--gradient-2));
+        }
+
+        .experience-card:hover {
+            transform: translateX(10px);
+            border-color: var(--accent);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .exp-title h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .exp-company {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .exp-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .exp-location {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .exp-achievements {
+            list-style: none;
+            margin: 1rem 0;
+        }
+
+        .exp-achievements li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .exp-achievements li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .exp-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--accent-light);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--secondary);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: var(--accent);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .project-icon i {
+            width: 40px;
+            height: 40px;
+            color: var(--accent-light);
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-category {
+            color: var(--accent-light);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--accent-light);
+        }
+
+        .metric-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .skill-category h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-light);
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-item {
+            background: rgba(255,255,255,0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .skill-item:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Education Section */
+        .education-card {
+            background: var(--secondary);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .edu-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-degree {
+            color: var(--accent-light);
+            font-weight: 600;
+        }
+
+        .edu-date {
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .contact-info {
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <nav>
+        <div class="logo">NB.</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="about">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <span class="highlight">Nikhil Bapanpalli</span></h1>
+                <p class="subtitle">Senior Data Analyst</p>
+                <p class="tagline">
+                    Transforming complex financial data into strategic business intelligence. 
+                    Specializing in real-time analytics, ML-driven forecasting, and cloud-scale 
+                    data architecture for Fortune 500 companies.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        <i data-lucide="briefcase"></i>
+                        View Projects
+                    </a>
+                    <a href="mailto:nikhilusa47@gmail.com" class="btn btn-secondary">
+                        <i data-lucide="mail"></i>
+                        Get In Touch
+                    </a>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i data-lucide="map-pin"></i>
+                        Fairfax, VA
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="phone"></i>
+                        +1 (571) 249-2897
+                    </div>
+                    <div class="contact-item">
+                        <i data-lucide="linkedin"></i>
+                        linkedin.com/in/nbapanpa
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dot dot-red"></div>
+                        <div class="code-dot dot-yellow"></div>
+                        <div class="code-dot dot-green"></div>
+                    </div>
+                    <div class="code-content">
+                        <span class="code-comment"># Real-time fraud detection pipeline</span><br>
+                        <span class="code-keyword">import</span> pandas <span class="code-keyword">as</span> pd<br>
+                        <span class="code-keyword">from</span> kafka <span class="code-keyword">import</span> KafkaConsumer<br><br>
+                        <span class="code-comment"># Process 2.5TB daily transactions</span><br>
+                        <span class="code-keyword">def</span> <span class="code-function">detect_anomalies</span>(stream):<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;model = load_tf_model(<span class="code-string">'fraud_v2'</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span> model.predict(stream) <span class="code-comment"># 94% accuracy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="stats-bar">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>4+</h3>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat-item">
+                <h3>2.5TB</h3>
+                <p>Daily Data Processed</p>
+            </div>
+            <div class="stat-item">
+                <h3>40%</h3>
+                <p>Reporting Time Reduced</p>
+            </div>
+            <div class="stat-item">
+                <h3>$12M</h3>
+                <p>Risk Identified</p>
+            </div>
+        </div>
+    </div>
+
+    <section id="experience">
+        <div class="section-header">
+            <h2>Professional Experience</h2>
+            <p>Building enterprise-scale analytics solutions across financial services and fintech</p>
+        </div>
+        <div class="experience-grid">
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Senior Data Analyst</h3>
+                        <div class="exp-company">Genworth Financial</div>
+                        <div class="exp-location">Henrico County, VA</div>
+                    </div>
+                    <div class="exp-date">
+                        Aug 2024 - Present
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Architected real-time streaming pipelines processing <strong>2.5TB daily</strong> policy transactions using Apache Kafka and AWS Kinesis, reducing fraud detection latency by <strong>65%</strong></li>
+                    <li>Deployed ML models (TensorFlow/Scikit-learn) achieving <strong>94% accuracy</strong> in policy lapse prediction, enabling proactive retention strategies worth <strong>$8.5M annually</strong></li>
+                    <li>Centralized mortgage and insurance data in Snowflake/Redshift, eliminating <strong>15+ data silos</strong> and improving reporting efficiency by <strong>40%</strong></li>
+                    <li>Automated compliance reporting with Airflow, reducing manual workload by <strong>120 hours/month</strong> and ensuring 100% audit readiness</li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">SQL</span>
+                    <span class="tech-tag">Apache Kafka</span>
+                    <span class="tech-tag">Snowflake</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">AWS Kinesis</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Kubernetes</span>
+                </div>
+            </div>
+
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Senior Data Analyst</h3>
+                        <div class="exp-company">Capital One Financial</div>
+                        <div class="exp-location">Tysons, VA</div>
+                    </div>
+                    <div class="exp-date">
+                        Sep 2023 - Jul 2024
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Engineered cloud data platforms using AWS Glue and Redshift, supporting <strong>$50B+</strong> in assets under analysis for actuarial and finance teams</li>
+                    <li>Built predictive forecasting models with Prophet, improving claims volume predictions by <strong>28%</strong> and optimizing capital reserves</li>
+                    <li>Implemented enterprise data governance with Collibra, achieving <strong>100% traceability</strong> for critical data elements across 200+ datasets</li>
+                    <li>Streamlined batch processing with Apache Spark, accelerating risk data throughput by <strong>3x</strong> for regulatory reporting</li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Apache Spark</span>
+                    <span class="tech-tag">AWS Glue</span>
+                    <span class="tech-tag">Prophet</span>
+                    <span class="tech-tag">Collibra</span>
+                    <span class="tech-tag">Informatica</span>
+                    <span class="tech-tag">Terraform</span>
+                    <span class="tech-tag">Tableau</span>
+                </div>
+            </div>
+
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Data Analyst</h3>
+                        <div class="exp-company">PB Fintech (Policybazaar)</div>
+                        <div class="exp-location">Bangalore, India</div>
+                    </div>
+                    <div class="exp-date">
+                        Aug 2021 - Jun 2022
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Developed fraud detection ML pipelines identifying <strong>$3.2M</strong> in anomalous claims with <strong>91% precision</strong></li>
+                    <li>Built automated ETL workflows with Apache Airflow, processing <strong>500K+ daily</strong> transactions with 99.9% uptime</li>
+                    <li>Created executive dashboards in Tableau/Power BI used by <strong>200+ stakeholders</strong> for real-time KPI monitoring</li>
+                    <li>Reduced regulatory reporting time by <strong>60%</strong> through Python automation, ensuring IRDAI compliance</li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">R</span>
+                    <span class="tech-tag">Apache Airflow</span>
+                    <span class="tech-tag">BigQuery</span>
+                    <span class="tech-tag">Keras</span>
+                    <span class="tech-tag">SAS</span>
+                </div>
+            </div>
+
+            <div class="experience-card fade-in">
+                <div class="exp-header">
+                    <div class="exp-title">
+                        <h3>Data Analyst</h3>
+                        <div class="exp-company">Moneyview</div>
+                        <div class="exp-location">Bangalore, India</div>
+                    </div>
+                    <div class="exp-date">
+                        May 2020 - Jul 2021
+                    </div>
+                </div>
+                <ul class="exp-achievements">
+                    <li>Built credit risk ML models (TensorFlow) automating underwriting decisions for <strong>$45M</strong> in loan disbursements</li>
+                    <li>Processed <strong>10M+</strong> historical records with Hadoop/Spark, enabling sub-second risk assessments</li>
+                    <li>Designed real-time monitoring with Apache Kafka, improving compliance detection speed by <strong>75%</strong></li>
+                </ul>
+                <div class="exp-tech">
+                    <span class="tech-tag">Hadoop</span>
+                    <span class="tech-tag">Spark</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">QlikView</span>
+                    <span class="tech-tag">MongoDB</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <h2>Featured Projects</h2>
+            <p>Enterprise-scale analytics solutions demonstrating end-to-end data engineering and ML capabilities</p>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="shield-alert"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Real-time Analytics</div>
+                    <h3>Fraud Detection Pipeline</h3>
+                    <p>Real-time streaming architecture processing 50K+ transactions/sec with ML-based anomaly detection for insurance claims.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">94%</div>
+                            <div class="metric-label">Accuracy</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">&lt;50ms</div>
+                            <div class="metric-label">Latency</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">$3.2M</div>
+                            <div class="metric-label">Saved</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="trending-up"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Machine Learning</div>
+                    <h3>Churn Prediction Engine</h3>
+                    <p>Deep learning model (TensorFlow) predicting policy lapses 90 days in advance with automated retention triggers.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">0.92</div>
+                            <div class="metric-label">F1 Score</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">18%</div>
+                            <div class="metric-label">Churn ↓</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">$8.5M</div>
+                            <div class="metric-label">Retained</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="database"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Data Engineering</div>
+                    <h3>Cloud Data Warehouse</h3>
+                    <p>Enterprise data lake migration consolidating 15+ silos into Snowflake with automated ETL and governance.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">2.5TB</div>
+                            <div class="metric-label">Daily</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">40%</div>
+                            <div class="metric-label">Faster</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">100%</div>
+                            <div class="metric-label">Audit Ready</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="activity"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Forecasting</div>
+                    <h3>Claims Volume Predictor</h3>
+                    <p>Time-series forecasting using Prophet and Dask for actuarial planning, optimizing $50M+ in capital reserves.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">28%</div>
+                            <div class="metric-label">Accuracy ↑</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">30 Days</div>
+                            <div class="metric-label">Forecast</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">$12M</div>
+                            <div class="metric-label">Optimized</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="layout-dashboard"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">Visualization</div>
+                    <h3>Executive BI Suite</h3>
+                    <p>Self-service analytics platform with Tableau/Power BI serving 200+ stakeholders with real-time KPIs.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">200+</div>
+                            <div class="metric-label">Users</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">99.9%</div>
+                            <div class="metric-label">Uptime</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">120h</div>
+                            <div class="metric-label">Saved/mo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card fade-in">
+                <div class="project-image">
+                    <div class="project-icon">
+                        <i data-lucide="git-branch"></i>
+                    </div>
+                </div>
+                <div class="project-content">
+                    <div class="project-category">MLOps</div>
+                    <h3>ML Pipeline Automation</h3>
+                    <p>CI/CD pipelines for ML models using Docker, Kubernetes, and Jenkins ensuring reproducible deployments.</p>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">10x</div>
+                            <div class="metric-label">Deploy Speed</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Zero</div>
+                            <div class="metric-label">Downtime</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">100%</div>
+                            <div class="metric-label">Traceable</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="section-header">
+            <h2>Technical Arsenal</h2>
+            <p>Full-stack data capabilities from ingestion to insights</p>
+        </div>
+        <div class="skills-container">
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="code-2"></i> Programming & Analysis</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Python</span>
+                    <span class="skill-item">SQL (Oracle, PostgreSQL)</span>
+                    <span class="skill-item">R</span>
+                    <span class="skill-item">SAS</span>
+                    <span class="skill-item">Pandas</span>
+                    <span class="skill-item">NumPy</span>
+                    <span class="skill-item">SciPy</span>
+                    <span class="skill-item">Excel/VBA</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="brain"></i> Machine Learning</h3>
+                <div class="skill-list">
+                    <span class="skill-item">TensorFlow</span>
+                    <span class="skill-item">Keras</span>
+                    <span class="skill-item">Scikit-learn</span>
+                    <span class="skill-item">Prophet</span>
+                    <span class="skill-item">XGBoost</span>
+                    <span class="skill-item">Random Forest</span>
+                    <span class="skill-item">Neural Networks</span>
+                    <span class="skill-item">A/B Testing</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="cloud"></i> Cloud & Big Data</h3>
+                <div class="skill-list">
+                    <span class="skill-item">AWS (Redshift, S3, Glue)</span>
+                    <span class="skill-item">Snowflake</span>
+                    <span class="skill-item">Google BigQuery</span>
+                    <span class="skill-item">Apache Spark</span>
+                    <span class="skill-item">Hadoop</span>
+                    <span class="skill-item">Kafka</span>
+                    <span class="skill-item">MongoDB</span>
+                    <span class="skill-item">Cassandra</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="workflow"></i> ETL & Integration</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Apache Airflow</span>
+                    <span class="skill-item">Informatica</span>
+                    <span class="skill-item">Talend</span>
+                    <span class="skill-item">Apache NiFi</span>
+                    <span class="skill-item">AWS Glue</span>
+                    <span class="skill-item">Alteryx</span>
+                    <span class="skill-item">dbt</span>
+                    <span class="skill-item">REST APIs</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="bar-chart-3"></i> Visualization</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Tableau</span>
+                    <span class="skill-item">Power BI</span>
+                    <span class="skill-item">Looker</span>
+                    <span class="skill-item">Matplotlib</span>
+                    <span class="skill-item">Seaborn</span>
+                    <span class="skill-item">Plotly</span>
+                    <span class="skill-item">QlikView</span>
+                </div>
+            </div>
+
+            <div class="skill-category fade-in">
+                <h3><i data-lucide="container"></i> DevOps & MLOps</h3>
+                <div class="skill-list">
+                    <span class="skill-item">Docker</span>
+                    <span class="skill-item">Kubernetes</span>
+                    <span class="skill-item">Jenkins</span>
+                    <span class="skill-item">Git/GitHub</span>
+                    <span class="skill-item">Terraform</span>
+                    <span class="skill-item">Collibra</span>
+                    <span class="skill-item">CI/CD</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <div class="section-header">
+            <h2>Education</h2>
+        </div>
+        <div class="education-card fade-in">
+            <div class="edu-info">
+                <h3>George Mason University</h3>
+                <div class="edu-degree">Master of Science in Data Analytics Engineering</div>
+                <div style="color: var(--text-muted); margin-top: 0.5rem;">Fairfax, VA • GPA: 3.8/4.0</div>
+            </div>
+            <div class="edu-date">Aug 2022 - May 2024</div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <h2>Let's Build Something Impactful</h2>
+            <p style="color: var(--text-muted); margin: 1rem 0;">
+                Open to Senior Data Analyst opportunities in Data Analytics, ML/AI, IT, and Finance
+            </p>
+            <div class="social-links">
+                <a href="mailto:nikhilusa47@gmail.com" title="Email">
+                    <i data-lucide="mail"></i>
+                </a>
+                <a href="https://linkedin.com/in/nbapanpa" target="_blank" title="LinkedIn">
+                    <i data-lucide="linkedin"></i>
+                </a>
+                <a href="tel:+15712492897" title="Phone">
+                    <i data-lucide="phone"></i>
+                </a>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                © 2024 Nikhil Bapanpalli. Built with modern web technologies.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Dynamic code typing effect
+        const codeElement = document.querySelector('.code-content');
+        if (codeElement) {
+            const originalHTML = codeElement.innerHTML;
+            codeElement.innerHTML = '';
+            let i = 0;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = originalHTML;
+            const text = tempDiv.textContent;
+
+            function typeWriter() {
+                if (i < text.length) {
+                    codeElement.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 20);
+                } else {
+                    codeElement.innerHTML = originalHTML;
+                }
+            }
+
+            setTimeout(typeWriter, 1000);
+        }
+    </script>
+</body>
+</html>
